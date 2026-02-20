@@ -1,0 +1,155 @@
+.app-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+  font-size: 1rem;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-btn:hover {
+  opacity: 0.8;
+}
+
+.give-up-btn {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.give-up-btn:hover {
+  background: #444;
+  color: white;
+  border-color: #777;
+}
+
+.reset-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  background: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #333;
+  border: 1px solid #444;
+  border-radius: 0 0 8px 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+}
+
+.suggestions-list li {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #444;
+}
+
+.suggestions-list li:hover {
+  background: #444;
+}
+
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 4px;
+  min-width: 600px;
+}
+
+.result-table th {
+  padding: 12px;
+  background: #333;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.result-table td {
+  padding: 12px;
+  text-align: center;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.pokemon-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: #333;
+  border-radius: 4px;
+  padding: 8px !important;
+}
+
+.win-message {
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+}
