@@ -24,6 +24,30 @@ const ResultTable = ({ guesses, target }) => {
         return { color: 'var(--wrong-color)', content: types.map(t => typeTranslations[t]).join(' / ') };
     };
 
+    const calculateRange = (statName) => {
+        let min = 1;
+        let max = 999;
+
+        guesses.forEach(g => {
+            const val = statName === 'generation' ? g.generation : g.stats[statName];
+            const targetVal = statName === 'generation' ? target.generation : target.stats[statName];
+
+            if (val === targetVal) {
+                min = Math.max(min, val);
+                max = Math.min(max, val);
+            } else if (val < targetVal) {
+                min = Math.max(min, val + 1);
+            } else {
+                max = Math.min(max, val - 1);
+            }
+        });
+
+        if (min === max) return `${min}`;
+        return `${min} 〜 ${max === 999 ? '?' : max}`;
+    };
+
+    const statsKeys = ['hp', 'atk', 'def', 'spa', 'spd', 'spe', 'total'];
+
     return (
         <div className="table-responsive">
             <table className="result-table">
@@ -32,16 +56,19 @@ const ResultTable = ({ guesses, target }) => {
                         <th>ポケモン</th>
                         <th>タイプ</th>
                         <th>世代</th>
-                        <th>HP</th>
-                        <th>攻撃</th>
-                        <th>防御</th>
-                        <th>特攻</th>
-                        <th>特防</th>
-                        <th>素早</th>
-                        <th>合計</th>
+                        {statsKeys.map(key => (
+                            <th key={key}>{key === 'spa' ? '特攻' : key === 'spd' ? '特防' : key === 'spe' ? '素早' : key === 'total' ? '合計' : key.toUpperCase()}</th>
+                        ))}
                     </tr>
                 </thead>
                 <tbody>
+                    <tr className="range-row" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', fontWeight: 'bold' }}>
+                        <td colSpan={2} style={{ textAlign: 'center' }}>範囲推定</td>
+                        <td style={{ color: 'var(--primary-color)' }}>{calculateRange('generation')}</td>
+                        {statsKeys.map(key => (
+                            <td key={key} style={{ color: 'var(--primary-color)' }}>{calculateRange(key)}</td>
+                        ))}
+                    </tr>
                     {[...guesses].reverse().map((g, sliceIndex) => (
                         <tr key={sliceIndex}>
                             <td>
