@@ -4,6 +4,8 @@ import ResultTable from './components/ResultTable';
 import { fetchPokemonData, fetchPokemonList } from './utils/pokemonApi';
 import './App.css';
 
+import finalPokemonIds from './utils/finalPokemonIds.json';
+
 function App() {
   const [target, setTarget] = useState(null);
   const [guesses, setGuesses] = useState([]);
@@ -14,7 +16,11 @@ function App() {
 
   const pickNewTarget = async (pokemonList) => {
     setLoading(true);
-    const randomPokemon = pokemonList[Math.floor(Math.random() * pokemonList.length)];
+    // 最終進化形のみを対象にフィルター
+    const finalEvolutions = pokemonList.filter(p => finalPokemonIds.includes(p.id));
+    const listToPickFrom = finalEvolutions.length > 0 ? finalEvolutions : pokemonList;
+    
+    const randomPokemon = listToPickFrom[Math.floor(Math.random() * listToPickFrom.length)];
     const data = await fetchPokemonData(randomPokemon.id);
     setTarget(data);
     setGuesses([]);
